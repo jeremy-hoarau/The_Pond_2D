@@ -1,9 +1,6 @@
 package game.models;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 public class Rock extends GameObject{
 

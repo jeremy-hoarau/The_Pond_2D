@@ -22,6 +22,7 @@ public class Duck extends GameObject {
     private final int leaderDetectionDistance = 10;
     protected double dx;
     protected double dy;
+    private boolean changingLeader = false;
 
     protected final Random random = new Random();
 
@@ -66,14 +67,14 @@ public class Duck extends GameObject {
 
     ///////////////////////////////////
 
-    private void followLeader() {                   //TODO suivire l'historique de position plutot que d'utiliser l'intersects
-        Duck followTarget = leader.getFollowTarget(id);
-        if(getCollider().intersects(followTarget.getCollider()))
-            speed -= 0.01;
-        else if(speed <= 1.5)
-            speed += 0.01;
-        float distX = (float) (followTarget.getX() - x);
-        float distY = (float) (followTarget.getY() - y);
+    private void followLeader() {
+        double[] followTarget = leader.getFollowTarget(id);
+        float distX = (float) (followTarget[0] - x);
+        float distY = (float) (followTarget[1] - y);
+        if(x != followTarget[0] && y != followTarget[1])
+            speed = (float) (leader.getSpeed()+0.1);
+        else
+            speed = leader.getSpeed();
 
         float angle = (float) Math.toDegrees(Math.atan2(distY, distX));
         if(angle < 0)
@@ -84,30 +85,45 @@ public class Duck extends GameObject {
             rotateByAngle(angle - rotation);
     }
 
-    private void detectCloseLeader() {
+    private void detectCloseLeader() {  //TODO améliorer: détecte uniquement à droite actuellement
         double closest = 999999;
-        double duckX = x + imgWidth/2f;
-        double duckY = y + imgHeight/2f;
+        if(leader != null)
+            closest = getDistanceToHeadDuck(leader);
+
         HeadDuck oldLeader = null;
         if(leader != null)
             oldLeader = leader;
         for (HeadDuck headDuck: Handler.getHeadDucks()) {
             if(headDuck == leader)
                 continue;
-            double distX, distY, distance;
-            double headDuckX = headDuck.getX() + headDuck.getWidth()/2;
-            double headDuckY = headDuck.getY() + headDuck.getHeight()/2;
-            distX = headDuckX - duckX;
-            distY = headDuckY - duckY;
-            distance = Math.sqrt(distX*distX + distX*distY);
-            if(distance <= leaderDetectionDistance && distance < closest){
+            double distance = getDistanceToHeadDuck(headDuck);
+            if((oldLeader == null && distance <= leaderDetectionDistance && distance < closest) || (oldLeader != null && distance < closest)){
                 closest = distance;
                 leader = headDuck;
             }
         }
         if(leader != null && (leader != oldLeader || oldLeader == null)){
+            if(leader != oldLeader && oldLeader != null)
+                oldLeader.removeFollower(this);
             leader.addFollower(this);
+            speed = leader.getSpeed();
+            changingLeader = true;
         }
+    }
+
+    private double getDistanceToHeadDuck(HeadDuck headDuck) {
+        double duckX = x + imgWidth/2f;
+        double duckY = y + imgHeight/2f;
+        double distX, distY, distance;
+        double headDuckX = headDuck.getX() + headDuck.getWidth()/2;
+        double headDuckY = headDuck.getY() + headDuck.getHeight()/2;
+        distX = headDuckX - duckX;
+        distY = headDuckY - duckY;
+        if(distX < 0)
+            distX = -distX;
+        if(distY < 0)
+            distY = -distY;
+        return Math.sqrt(distX*distX + distX*distY);
     }
 
     protected void checkCollision() {

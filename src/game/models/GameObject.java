@@ -35,7 +35,7 @@ public abstract class GameObject {
     public double getY() {
         return y;
     }
-    public double getSpeed() {
+    public float getSpeed() {
         return speed;
     }
     public Type getType() {

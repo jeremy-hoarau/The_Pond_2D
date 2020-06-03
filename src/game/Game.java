@@ -101,8 +101,8 @@ public class Game extends Canvas implements Runnable {
         handler.addDuck(new Duck());
 
         handler.addRock(new Rock(550, 150));
+        handler.addRock(new Rock(700, 500));
         handler.addRock(new Rock(1000, 250));
-        handler.addRock(new Rock(700, 600));
 
         handler.addWaterLily(new WaterLily(450, 550));
         handler.addWaterLily(new WaterLily(600, 230));
