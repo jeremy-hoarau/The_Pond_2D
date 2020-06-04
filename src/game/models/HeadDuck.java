@@ -45,7 +45,6 @@ public class HeadDuck extends Duck {
         rotateImage(angleToRotate);
         move();
         rotateByAngle(angleToRotate);
-        System.out.println(followers);
     }
 
     public void addFollower(Duck duck) {

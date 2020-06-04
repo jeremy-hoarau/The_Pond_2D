@@ -112,13 +112,8 @@ public class Duck extends GameObject {
     }
 
     private double getDistanceToHeadDuck(HeadDuck headDuck) {
-        double duckX = x + imgWidth/2f;
-        double duckY = y + imgHeight/2f;
-        double distX, distY, distance;
-        double headDuckX = headDuck.getX() + headDuck.getWidth()/2;
-        double headDuckY = headDuck.getY() + headDuck.getHeight()/2;
-        distX = headDuckX - duckX;
-        distY = headDuckY - duckY;
+        double distX = headDuck.getX() - x;
+        double distY = headDuck.getY() - y;
         if(distX < 0)
             distX = -distX;
         if(distY < 0)
