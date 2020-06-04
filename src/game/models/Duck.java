@@ -85,7 +85,7 @@ public class Duck extends GameObject {
             rotateByAngle(angle - rotation);
     }
 
-    private void detectCloseLeader() {  //TODO améliorer: détecte uniquement à droite actuellement
+    private void detectCloseLeader() {
         double closest = 999999;
         if(leader != null)
             closest = getDistanceToHeadDuck(leader);
