@@ -36,7 +36,7 @@ public class Handler {
                 continue;
             }
             if(duck.getHealth() == 5) {     // becomes HeadDuck
-                addHeadDuck(new HeadDuck(duck.getX(), duck.getY(), duck.getRotation()));
+                addHeadDuck(new HeadDuck(duck.getX()-duck.getWidth()/2, duck.getY()-duck.getHeight()/2, duck.getRotation()));
                 ducksToRemove.add(duck);
                 continue;
             }

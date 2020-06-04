@@ -5,6 +5,7 @@ import game.Handler;
 import game.Physics;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.Random;
 
 import static java.lang.Math.*;
@@ -19,10 +20,9 @@ public class Duck extends GameObject {
     private boolean inWater = false;
     private boolean isLastFollower = true;
     private HeadDuck leader = null;
-    private final int leaderDetectionDistance = 10;
+    private final int leaderDetectionDistance = 150;
     protected double dx;
     protected double dy;
-    private boolean changingLeader = false;
 
     protected final Random random = new Random();
 
@@ -32,7 +32,7 @@ public class Duck extends GameObject {
     protected float angleToRotate;
 
     public Duck() {
-        super(-50, 300, Type.Duck);
+        super(0, 0, Type.Duck);
         id = Handler.getNextId();
         health = 2;
         speed = 1;
@@ -40,7 +40,7 @@ public class Duck extends GameObject {
         srcImgWidth = img.getWidth(null);
         srcImgHeight = img.getHeight(null);
         resizeDuckImage();
-        transform.translate(x,y);
+        transform.translate(-50,300);
     }
 
     public void update() {
@@ -54,7 +54,8 @@ public class Duck extends GameObject {
             checkCollision();
         if(leader == null && (lastLunchTime + timeBetweenLunches) < System.currentTimeMillis())
             loseWeight();
-        detectCloseLeader();
+        if(leader == null || (isLastFollower && leader.canLeave()))
+            detectCloseLeader();
         if(leader != null)
             followLeader();
         rotateImage(angleToRotate);
@@ -75,7 +76,6 @@ public class Duck extends GameObject {
             speed = (float) (leader.getSpeed()+0.1);
         else
             speed = leader.getSpeed();
-
         float angle = (float) Math.toDegrees(Math.atan2(distY, distX));
         if(angle < 0)
             angle += 360;
@@ -106,19 +106,11 @@ public class Duck extends GameObject {
             if(leader != oldLeader && oldLeader != null)
                 oldLeader.removeFollower(this);
             leader.addFollower(this);
-            speed = leader.getSpeed();
-            changingLeader = true;
         }
     }
 
     private double getDistanceToHeadDuck(HeadDuck headDuck) {
-        double distX = headDuck.getX() - x;
-        double distY = headDuck.getY() - y;
-        if(distX < 0)
-            distX = -distX;
-        if(distY < 0)
-            distY = -distY;
-        return Math.sqrt(distX*distX + distX*distY);
+        return Point2D.distance(x, y, headDuck.getX(), headDuck.getY());
     }
 
     protected void checkCollision() {
@@ -208,8 +200,12 @@ public class Duck extends GameObject {
     }
 
     protected void resizeDuckImage() {
-        if(inWater)
-            importImage("Duck_Water.png");  // import the image at each resize to preserve image quality
+        if(inWater) {
+            if(type == Type.Duck)
+                importImage("Duck_Water.png");  // import the image at each resize to preserve image quality
+            else
+                importImage("HeadDuck.png");
+        }
         int width = srcImgWidth/20+(srcImgWidth/100)*health;
         int height = srcImgHeight/20+(srcImgHeight/100)*health;
 

@@ -14,23 +14,23 @@ public class HeadDuck extends Duck {
     int maxStoredPositions = 20;
     long lastTimeSavePosition;
     float nbOfPositionPerDuck = 70;
+    long lastTimeADuckLeft;
+    int timeBetweenLeavers = 1000;
 
     public HeadDuck(double x, double y, int rotation) {
         id = Handler.getNextId();
+        health = 5;
         speed = 1;
-        this.x = x;
-        this.y = y;
         type = Type.HeadDuck;
         List<Integer> followers = new ArrayList<>();
         importImage("HeadDuck.png");
-        resizeImage(imgWidth/10, imgHeight/10);
-        x -= imgWidth/2f;
-        y -= imgHeight/2f;
-        transform.translate(x+50,y-300);    //TODO à l'apparition du HeadDuck l'image doit être plus en haut à gauche
+        resizeDuckImage();
+        transform.translate(x+50,y-300);
         rotateByAngle(rotation);
         rotateImage(angleToRotate);
         lastTimeSavePosition = System.currentTimeMillis();
         positionsHistory.add(new double[]{x, y});
+        lastTimeADuckLeft = System.currentTimeMillis();
     }
 
     public void update() {  //TODO Faire "KOIN KOIN"!
@@ -52,10 +52,15 @@ public class HeadDuck extends Duck {
             followers.getLast().setIsLastFollower(false);
         }
         followers.add(duck);
+        duck.setIsLastFollower(true);
     }
 
     public void removeFollower(Duck duck) {
         followers.remove(duck);
+        duck.setIsLastFollower(false);
+        if(followers.size() > 0)
+            followers.getLast().setIsLastFollower(true);
+        lastTimeADuckLeft = System.currentTimeMillis();
     }
 
     public double[] getFollowTarget(int id) {
@@ -68,5 +73,9 @@ public class HeadDuck extends Duck {
             }
         }
         return new double[]{0, 0};
+    }
+
+    public boolean canLeave() {
+        return lastTimeADuckLeft + timeBetweenLeavers < System.currentTimeMillis();
     }
 }

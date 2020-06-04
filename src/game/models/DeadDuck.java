@@ -13,7 +13,7 @@ public class DeadDuck extends Duck{
         importImage("Duck_Dead.png");
         srcImgWidth = img.getWidth(null);
         srcImgHeight = img.getHeight(null);
-        resizeImage(srcImgWidth/20+(srcImgWidth/100)*health, srcImgHeight/20+(srcImgHeight/100)*health);
+        resizeImage(srcImgWidth/20+(srcImgWidth/100)*health+2, srcImgHeight/20+(srcImgHeight/100)*health+2);
         transform.translate(x+50-imgWidth-2f ,y-300-imgHeight/2f);
         rotateByAngle(rotation);
         rotateImage(angleToRotate);
