@@ -16,7 +16,7 @@ public class Duck extends GameObject {
     protected int rotation = 0;
 
     private long lastLunchTime = System.currentTimeMillis();
-    private final long timeBetweenLunches = 15000;
+    private final long timeBetweenLunches = 9000;
     private boolean inWater = false;
     private boolean isLastFollower = true;
     private HeadDuck leader = null;
@@ -34,7 +34,7 @@ public class Duck extends GameObject {
     public Duck() {
         super(0, 0, Type.Duck);
         id = Handler.getNextId();
-        health = 2;
+        health = 4;
         speed = 1;
         importImage("Duck_Ground.png");
         srcImgWidth = img.getWidth(null);
@@ -221,7 +221,7 @@ public class Duck extends GameObject {
     }
 
     protected void rotateImage(float angle) {
-        //transform.rotate(Math.toRadians(angle));
+        //transform.rotate(angle);
     }
 
     ///////////////////////////////////

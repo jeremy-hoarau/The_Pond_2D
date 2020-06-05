@@ -23,7 +23,7 @@ public class Physics {
 
         String[] directionToGo = {"right", "left", "bot", "top"};
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {   //TODO if intersects 2 rectangles: return "left-right"(for ex)
             if(duck.getCollider().intersects(pondColliders[i]))
                 return directionToGo[i];
         }

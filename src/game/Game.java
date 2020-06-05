@@ -4,6 +4,7 @@ import game.models.Duck;
 import game.models.Rock;
 import game.models.WaterLily;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -56,7 +57,11 @@ public class Game extends Canvas implements Runnable {
             delta += (now - lastTime) / ns;
             lastTime = now;
             while(delta >= 1) {
-                update();
+                try {
+                    update();
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                }
                 delta--;
             }
             if(running)
@@ -72,7 +77,7 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    private void update() {
+    private void update() throws UnsupportedAudioFileException {
         handler.update();
     }
 

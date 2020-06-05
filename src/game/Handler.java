@@ -2,7 +2,12 @@ package game;
 
 import game.models.*;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.LinkedList;
 
 public class Handler {
@@ -21,7 +26,7 @@ public class Handler {
     private long lastSpawnTime = System.currentTimeMillis();
     private final int spawnTime = 20000;
 
-    public void update(){
+    public void update() throws UnsupportedAudioFileException {
         if((lastSpawnTime + spawnTime) < System.currentTimeMillis()){
             ducksToAdd.add(new Duck());
             lastSpawnTime = System.currentTimeMillis();
