@@ -35,7 +35,7 @@ public class Duck extends GameObject {
     public Duck() {
         super(0, 0, Type.Duck);
         id = Handler.getNextId();
-        health = 4;
+        health = 2;
         speed = 1;
         importImage("Duck_Ground.png");
         srcImgWidth = img.getWidth(null);

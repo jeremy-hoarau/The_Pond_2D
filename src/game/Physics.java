@@ -76,32 +76,32 @@ public class Physics {
 
     private static String getDirection(GameObject duck, GameObject go) {
         // COLLIDE LEFT
-        if((duck.getX() < go.getX()+go.getWidth() && go.getX() < duck.getX())) {
-            if(go.getY() < duck.getY()+duck.getHeight() && duck.getY()+duck.getHeight() < go.getY()+go.getHeight())        // collide left-bot
+        if((duck.getX()-duck.getWidth()/2 < go.getX()+go.getWidth()/2 && go.getX()-go.getWidth()/2 < duck.getX()-go.getWidth()/2)) {
+            if(go.getY()-go.getHeight()/2 < duck.getY()+duck.getHeight()/2 && duck.getY()+duck.getHeight()/2 < go.getY()+go.getHeight()/2)        // collide left-bot
                 return "right-top";
-            else if(duck.getY() < go.getY()+go.getHeight() && go.getY() < duck.getY())      // collide left-top
+            else if(duck.getY()-duck.getHeight()/2 < go.getY()+go.getHeight()/2 && go.getY()-go.getHeight()/2< duck.getY()-duck.getHeight()/2)      // collide left-top
                 return "right-bot";
             else
                 return "right";
         }
 
         // COLLIDE RIGHT
-        if(go.getX() < duck.getX()+duck.getWidth() && duck.getX()+duck.getWidth() < go.getX()+go.getWidth()) {
-            if(go.getY() < duck.getY()+duck.getHeight() && duck.getY()+duck.getHeight() < go.getY()+go.getHeight())        // collide right-bot
+        if(go.getX()-go.getWidth()/2 < duck.getX()+duck.getWidth()/2 && duck.getX()+duck.getWidth()/2 < go.getX()+go.getWidth()/2) {
+            if(go.getY()-go.getHeight()/2 < duck.getY()+duck.getHeight()/2 && duck.getY()+duck.getHeight()/2 < go.getY()+go.getHeight()/2)        // collide right-bot
                 return "left-top";
-            else if(duck.getY() < go.getY()+go.getHeight() && go.getY() < duck.getY())      // collide right-top
+            else if(duck.getY()-duck.getHeight()/2 < go.getY()+go.getHeight()/2 && go.getY()-go.getHeight()/2 < duck.getY()-duck.getHeight()/2)      // collide right-top
                 return "left-bot";
             else
                 return "left";
         }
 
         // COLLIDE TOP
-        else if(go.getY() < duck.getY() && duck.getY() < go.getY()+go.getHeight() && duck.getX() < go.getX() && go.getX()+go.getWidth() < duck.getX()+duck.getWidth()) {
+        else if(go.getY()-go.getHeight()/2 < duck.getY()-duck.getHeight()/2 && duck.getY()-duck.getHeight()/2 < go.getY()+go.getHeight()/2) {
             return "bot";
         }
 
         // COLLIDE BOT
-        else if(go.getY() < duck.getY()+duck.getHeight() && duck.getY()+duck.getHeight() < go.getY()+go.getHeight() && duck.getX() < go.getX() && go.getX()+go.getWidth() < duck.getX()+duck.getWidth()) {
+        else if(go.getY()-go.getHeight()/2 < duck.getY()+duck.getHeight()/2 && duck.getY()+duck.getHeight()/2 < go.getY()+go.getHeight()/2) {
             return "top";
         }
         return null;
