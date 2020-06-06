@@ -133,9 +133,7 @@ public class Duck extends GameObject {
     }
 
     protected void move() {
-        //rotateImage(360-rotation);
-        transform.translate(speed*Game.delta * cos(Math.toRadians(rotation))+dx, speed*Game.delta * sin(Math.toRadians(rotation))+dy);
-        //rotateImage(rotation);
+        transform.translate(speed*cos(Math.toRadians(rotation))+dx, speed*sin(Math.toRadians(rotation))+dy);
 
         x = transform.getTranslateX() + imgWidth/2f;
         y = transform.getTranslateY() + imgHeight/2f;
@@ -146,7 +144,7 @@ public class Duck extends GameObject {
         importImage("Duck_Water.png");
         resizeDuckImage();
         rotateByAngle(269 + random.nextInt(179));
-        lastLunchTime = System.currentTimeMillis();//reset lastLaunch
+        lastLunchTime = System.currentTimeMillis(); //reset lastLaunch
         speed = 2;
     }
 
@@ -224,7 +222,7 @@ public class Duck extends GameObject {
     }
 
     protected void rotateImage(float angle) {
-        //transform.rotate(angle, imgWidth/2f, imgHeight/2f);
+        //transform.rotate(angle, imgWidth/2f, imgHeight/2f);       //TODO import the rotated image depending on "rotation" value for (Duck_Water, HeadDuck, HeadDuck_Koink, DeadDuck)
     }
 
     ///////////////////////////////////

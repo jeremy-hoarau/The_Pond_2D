@@ -11,7 +11,6 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 1280, HEIGHT = 720;
-    public static double delta;
     public static Graphics2D g;
 
     // Pond borders
@@ -49,7 +48,7 @@ public class Game extends Canvas implements Runnable {
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1e9 / amountOfTicks;
-        delta = 0;
+        double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
         while(running) {

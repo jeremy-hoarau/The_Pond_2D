@@ -32,7 +32,7 @@ public class Handler {
 
         for(Duck duck : ducks) {
             if(duck.getHealth() == 0) {     // dies
-                deadDucks.add(new DeadDuck(duck.getX(), duck.getY(), duck.getRotation()));
+                deadDucks.add(new DeadDuck(duck.getX()-duck.getWidth()/2, duck.getY()-duck.getHeight()/2, duck.getRotation()));
                 ducksToRemove.add(duck);
                 continue;
             }

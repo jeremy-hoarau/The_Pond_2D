@@ -1,11 +1,15 @@
 package game.models;
 
+import game.Game;
 import game.Handler;
 
 import javax.sound.sampled.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class HeadDuck extends Duck {
 
@@ -36,7 +40,7 @@ public class HeadDuck extends Duck {
         srcImgWidth = img.getWidth(null);
         srcImgHeight = img.getHeight(null);
         resizeDuckImage();
-        transform.translate(x+50-imgWidth/2f ,y-300-imgHeight/2f);
+        transform.translate(x+50 ,y-300);
         rotateByAngle(rotation);
         rotateImage(angleToRotate);
 
@@ -47,8 +51,6 @@ public class HeadDuck extends Duck {
     }
 
     public void update() {
-        dx = 0;
-        dy = 0;
         if(doingKoink && timeOfKoink + koinkDuration < System.currentTimeMillis()) {
             doingKoink = false;
             importImage("HeadDuck.png");
