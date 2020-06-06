@@ -23,9 +23,20 @@ public class Physics {
 
         String[] directionToGo = {"right", "left", "bot", "top"};
 
-        for (int i = 0; i < 4; i++) {   //TODO if intersects 2 rectangles: return "left-right"(for ex)
-            if(duck.getCollider().intersects(pondColliders[i]))
+        for (int i = 0; i < 4; i++) {
+            if(duck.getCollider().intersects(pondColliders[i])) {
+                for (int j = 0; j < 4; j++) {
+                    if(j == i)
+                        continue;
+                    if(duck.getCollider().intersects(pondColliders[j])) {
+                        if(i <= 1) {
+                            return directionToGo[i] + "-" + directionToGo[j];
+                        }
+                        return directionToGo[j] + "-" + directionToGo[i];
+                    }
+                }
                 return directionToGo[i];
+            }
         }
         return null;
     }

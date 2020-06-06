@@ -2,12 +2,8 @@ package game;
 
 import game.models.*;
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
-import java.io.File;
-import java.nio.file.FileSystems;
 import java.util.LinkedList;
 
 public class Handler {

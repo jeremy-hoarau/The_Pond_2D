@@ -3,7 +3,6 @@ package game.models;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -54,20 +53,6 @@ public abstract class GameObject {
     public double getHeight() {
         return imgHeight;
     }
-
-
-    //Setters
-    public void setX(double x) {
-        this.x = x;
-    }
-    public void setY(double y) {
-        this.y = y;
-    }
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-    public void setHealth(int health) { this.health = health;}
-
 
     //////////////////////////////////////////////
 

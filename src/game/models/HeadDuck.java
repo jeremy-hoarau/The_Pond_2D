@@ -4,10 +4,8 @@ import game.Handler;
 
 import javax.sound.sampled.*;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class HeadDuck extends Duck {
 
@@ -23,6 +21,55 @@ public class HeadDuck extends Duck {
     int timeBetweenSounds = 2000;
     long lastTimeSoundPlayed;
     float soundVolume = 0.5f;
+    long timeOfKoink;
+    int koinkDuration = 420;
+
+    public HeadDuck(double x, double y, int rotation) throws UnsupportedAudioFileException {
+
+        this.x = x;
+        this.y = y;
+        id = Handler.getNextId();
+        health = 5;
+        speed = 1;
+        type = Type.HeadDuck;
+        importImage("HeadDuck.png");
+        srcImgWidth = img.getWidth(null);
+        srcImgHeight = img.getHeight(null);
+        resizeDuckImage();
+        transform.translate(x+50-imgWidth/2f ,y-300-imgHeight/2f);
+        rotateByAngle(rotation);
+        rotateImage(angleToRotate);
+
+        lastTimeSavePosition = System.currentTimeMillis();
+        positionsHistory.add(new double[]{x, y});
+        lastTimeADuckLeft = System.currentTimeMillis();
+        lastTimeSoundPlayed = System.currentTimeMillis() - timeBetweenSounds;
+    }
+
+    public void update() {
+        dx = 0;
+        dy = 0;
+        if(doingKoink && timeOfKoink + koinkDuration < System.currentTimeMillis()) {
+            doingKoink = false;
+            importImage("HeadDuck.png");
+            resizeDuckImage();
+        }
+        if(lastTimeSavePosition + timeBetweenPositions <= System.currentTimeMillis()){  //save position history
+            lastTimeSavePosition = System.currentTimeMillis();
+            positionsHistory.add(new double[]{x, y});
+            if(positionsHistory.size() > maxStoredPositions * timeBetweenPositions)
+                positionsHistory.remove(0);
+        }
+        angleToRotate = 0;
+        checkCollision();
+        rotateImage(angleToRotate);
+        move();
+        rotateByAngle(angleToRotate);
+        if (lastTimeSoundPlayed + timeBetweenSounds < System.currentTimeMillis()){
+            koink();
+            lastTimeSoundPlayed = System.currentTimeMillis();
+        }
+    }
 
     private void koink() {
         try {
@@ -40,44 +87,10 @@ public class HeadDuck extends Duck {
     }
 
     private void koinkAnimation() {
-        //TODO animation KOINK : modifier image pendant "timeBetweenSounds"
-        //import, resize and rotate the original image
-    }
-
-    public HeadDuck(double x, double y, int rotation) throws UnsupportedAudioFileException {
-
-        id = Handler.getNextId();
-        health = 5;
-        speed = 1;
-        type = Type.HeadDuck;
-        List<Integer> followers = new ArrayList<>();
-        importImage("HeadDuck.png");
-        resizeDuckImage();
-        transform.translate(x+50,y-300);
-        rotateByAngle(rotation);
-        rotateImage(angleToRotate);
-        lastTimeSavePosition = System.currentTimeMillis();
-        positionsHistory.add(new double[]{x, y});
-        lastTimeADuckLeft = System.currentTimeMillis();
-        lastTimeSoundPlayed = System.currentTimeMillis() - timeBetweenSounds;
-    }
-
-    public void update() {
-        if(lastTimeSavePosition + timeBetweenPositions <= System.currentTimeMillis()){  //save position history
-            lastTimeSavePosition = System.currentTimeMillis();
-            positionsHistory.add(new double[]{x, y});
-            if(positionsHistory.size() > maxStoredPositions * timeBetweenPositions)
-                positionsHistory.remove(0);
-        }
-        angleToRotate = 0;
-        checkCollision();
-        rotateImage(angleToRotate);
-        move();
-        rotateByAngle(angleToRotate);
-        if (lastTimeSoundPlayed + timeBetweenSounds < System.currentTimeMillis()){
-            koink();
-            lastTimeSoundPlayed = System.currentTimeMillis();
-        }
+        doingKoink = true;
+        timeOfKoink = System.currentTimeMillis();
+        importImage("HeadDuck_Koink.png");
+        resizeImage(srcImgWidth/20+(srcImgWidth/100)*health, srcImgHeight/20+(srcImgHeight/100)*health);
     }
 
     public void addFollower(Duck duck) {

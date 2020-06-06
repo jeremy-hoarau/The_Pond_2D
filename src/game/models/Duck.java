@@ -23,6 +23,7 @@ public class Duck extends GameObject {
     private final int leaderDetectionDistance = 150;
     protected double dx;
     protected double dy;
+    boolean doingKoink = false;
 
     protected final Random random = new Random();
 
@@ -132,9 +133,9 @@ public class Duck extends GameObject {
     }
 
     protected void move() {
-        rotateImage(360-rotation);
+        //rotateImage(360-rotation);
         transform.translate(speed*Game.delta * cos(Math.toRadians(rotation))+dx, speed*Game.delta * sin(Math.toRadians(rotation))+dy);
-        rotateImage(rotation);
+        //rotateImage(rotation);
 
         x = transform.getTranslateX() + imgWidth/2f;
         y = transform.getTranslateY() + imgHeight/2f;
@@ -203,6 +204,8 @@ public class Duck extends GameObject {
         if(inWater) {
             if(type == Type.Duck)
                 importImage("Duck_Water.png");  // import the image at each resize to preserve image quality
+            else if(doingKoink)
+                importImage("HeadDuck_Koink.png");
             else
                 importImage("HeadDuck.png");
         }
@@ -221,7 +224,7 @@ public class Duck extends GameObject {
     }
 
     protected void rotateImage(float angle) {
-        //transform.rotate(angle);
+        //transform.rotate(angle, imgWidth/2f, imgHeight/2f);
     }
 
     ///////////////////////////////////
