@@ -1,15 +1,11 @@
 package game.models;
 
-import game.Game;
 import game.Handler;
 
 import javax.sound.sampled.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 public class HeadDuck extends Duck {
 
@@ -42,7 +38,6 @@ public class HeadDuck extends Duck {
         resizeDuckImage();
         transform.translate(x+50 ,y-300);
         rotateByAngle(rotation);
-        rotateImage(angleToRotate);
 
         lastTimeSavePosition = System.currentTimeMillis();
         positionsHistory.add(new double[]{x, y});
@@ -64,9 +59,7 @@ public class HeadDuck extends Duck {
         }
         angleToRotate = 0;
         checkCollision();
-        rotateImage(angleToRotate);
         move();
-        rotateByAngle(angleToRotate);
         if (lastTimeSoundPlayed + timeBetweenSounds < System.currentTimeMillis()){
             koink();
             lastTimeSoundPlayed = System.currentTimeMillis();
@@ -112,7 +105,7 @@ public class HeadDuck extends Duck {
     }
 
     public double[] getFollowTarget(int id) {
-        if(positionsHistory.size() == 0)
+        if(positionsHistory.size() < nbOfPositionPerDuck * followers.size())
             return new double[]{0, 0};
         for(int i = 0; i < followers.size(); i++) {
             if(followers.get(i).getId() == id) {

@@ -1,10 +1,7 @@
 package game.models;
 
-import java.awt.*;
-
 public class DeadDuck extends Duck{
-    private long deathTime;
-    private long timeBeforeDelete = 3000;
+    private final long deathTime;
 
     public DeadDuck(double x, double y, int rotation) {
         this.x = x;
@@ -15,16 +12,13 @@ public class DeadDuck extends Duck{
         srcImgWidth = img.getWidth(null);
         srcImgHeight = img.getHeight(null);
         resizeImage(srcImgWidth/20+(srcImgWidth/100)*health, srcImgHeight/20+(srcImgHeight/100)*health);
-        transform.translate(x+50 ,y-300);
+        dx = (srcImgWidth/20f+(srcImgWidth/100f)*health - srcImgWidth/20f+(srcImgWidth/100f))/2;
+        dy = (srcImgHeight/20f+(srcImgHeight/100f)*health - srcImgHeight/20f+(srcImgHeight/100f))/2;
+        transform.translate(x+50-dx ,y-300-dy);
         rotateByAngle(rotation);
-        rotateImage(angleToRotate);
     }
 
     public void update() {
-    }
-
-    public void render(Graphics2D g) {
-        g.drawImage(img, transform, null);
     }
 
     public long getDeathTime() {
@@ -32,6 +26,7 @@ public class DeadDuck extends Duck{
     }
 
     public long getTimeBeforeDelete() {
+        long timeBeforeDelete = 3000;
         return timeBeforeDelete;
     }
 }

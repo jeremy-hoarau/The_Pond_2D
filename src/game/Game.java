@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
 
-    private Handler handler;
+    private final Handler handler;
 
     public Game() {
         new Window(WIDTH, HEIGHT, "The Pond", this);

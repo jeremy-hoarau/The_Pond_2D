@@ -49,14 +49,6 @@ public class Physics {
         return null;
     }
 
-    public static String collisionDuck(Duck duck) {
-        for (GameObject go:game.Handler.getDucks()) {
-            if(go.getCollider().intersects(duck.getCollider()))
-                return getDirection(duck, go);
-        }
-        return null;
-    }
-
     public static String collisionWaterLily(Duck duck) {
         for (WaterLily waterLily:game.Handler.getWaterLilies()) {
             if(waterLily.getCollider().intersects(duck.getCollider())) {

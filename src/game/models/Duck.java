@@ -16,11 +16,9 @@ public class Duck extends GameObject {
     protected int rotation = 0;
 
     private long lastLunchTime = System.currentTimeMillis();
-    private final long timeBetweenLunches = 9000;
     private boolean inWater = false;
     private boolean isLastFollower = true;
     private HeadDuck leader = null;
-    private final int leaderDetectionDistance = 150;
     protected double dx;
     protected double dy;
     boolean doingKoink = false;
@@ -53,18 +51,21 @@ public class Duck extends GameObject {
         }
         else if(inWater && leader == null)
             checkCollision();
+        long timeBetweenLunches = 9000;
         if(leader == null && (lastLunchTime + timeBetweenLunches) < System.currentTimeMillis())
             loseWeight();
         if(leader == null || (isLastFollower && leader.canLeave()))
             detectCloseLeader();
-        if(leader != null)
+        if(leader != null) {
             followLeader();
-        rotateImage(angleToRotate);
+        }
         move();
     }
 
     public void render(Graphics2D g) {
+        g.rotate(Math.toRadians(rotation), x, y);
         g.drawImage(img, transform, null);
+        g.rotate(Math.toRadians(-rotation), x, y);
     }
 
     ///////////////////////////////////
@@ -73,10 +74,10 @@ public class Duck extends GameObject {
         double[] followTarget = leader.getFollowTarget(id);
         float distX = (float) (followTarget[0] - x);
         float distY = (float) (followTarget[1] - y);
-        if(x != followTarget[0] && y != followTarget[1])
-            speed = (float) (leader.getSpeed()+0.1);
+        if(distX > 5 && distY > 5)
+            speed = leader.getSpeed()+0.1f;
         else
-            speed = leader.getSpeed();
+            speed = leader.getSpeed()-0.1f;
         float angle = (float) Math.toDegrees(Math.atan2(distY, distX));
         if(angle < 0)
             angle += 360;
@@ -98,6 +99,7 @@ public class Duck extends GameObject {
             if(headDuck == leader)
                 continue;
             double distance = getDistanceToHeadDuck(headDuck);
+            int leaderDetectionDistance = 150;
             if((oldLeader == null && distance <= leaderDetectionDistance && distance < closest) || (oldLeader != null && distance < closest)){
                 closest = distance;
                 leader = headDuck;
@@ -122,10 +124,6 @@ public class Duck extends GameObject {
         direction = Physics.collisionRock(this);        // Rock
         if(direction != null)
             rotateByDirection(direction);
-
-//        direction = Physics.collisionDuck(this);             // Duck
-//        if(direction != null)
-//            rotateByDirection(direction);
 
         direction = Physics.collisionWaterLily(this);     // WaterLily
         if(direction != null)
@@ -219,10 +217,6 @@ public class Duck extends GameObject {
 
         rotation += angle;
         rotation = rotation%360;
-    }
-
-    protected void rotateImage(float angle) {
-        //transform.rotate(angle, imgWidth/2f, imgHeight/2f);       //TODO import the rotated image depending on "rotation" value for (Duck_Water, HeadDuck, HeadDuck_Koink, DeadDuck)
     }
 
     ///////////////////////////////////

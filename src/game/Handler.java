@@ -8,21 +8,21 @@ import java.util.LinkedList;
 
 public class Handler {
 
-    private static LinkedList<Rock> rocks = new LinkedList<>();
-    private static LinkedList<WaterLily> waterLilies = new LinkedList<>();
-    private static LinkedList<HeadDuck> headDucks = new LinkedList<>();
-    private static LinkedList<Duck> ducks = new LinkedList<>();
-    private static LinkedList<Duck> ducksToAdd = new LinkedList<>();
-    private static LinkedList<Duck> ducksToRemove = new LinkedList<>();
-    private static LinkedList<DeadDuck> deadDucks = new LinkedList<>();
-    private static LinkedList<DeadDuck> deadDucksToRemove = new LinkedList<>();
+    private static final LinkedList<Rock> rocks = new LinkedList<>();
+    private static final LinkedList<WaterLily> waterLilies = new LinkedList<>();
+    private static final LinkedList<HeadDuck> headDucks = new LinkedList<>();
+    private static final LinkedList<Duck> ducks = new LinkedList<>();
+    private static final LinkedList<Duck> ducksToAdd = new LinkedList<>();
+    private static final LinkedList<Duck> ducksToRemove = new LinkedList<>();
+    private static final LinkedList<DeadDuck> deadDucks = new LinkedList<>();
+    private static final LinkedList<DeadDuck> deadDucksToRemove = new LinkedList<>();
 
     private static int nextId;
 
     private long lastSpawnTime = System.currentTimeMillis();
-    private final int spawnTime = 20000;
 
     public void update() throws UnsupportedAudioFileException {
+        int spawnTime = 20000;
         if((lastSpawnTime + spawnTime) < System.currentTimeMillis()){
             ducksToAdd.add(new Duck());
             lastSpawnTime = System.currentTimeMillis();
