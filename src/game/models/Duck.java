@@ -21,7 +21,7 @@ public class Duck extends GameObject {
     private HeadDuck leader = null;
     protected double dx;
     protected double dy;
-    boolean doingKoink = false;
+    protected boolean doingKoink = false;
 
     protected final Random random = new Random();
 
