@@ -56,11 +56,7 @@ public class Game extends Canvas implements Runnable {
             delta += (now - lastTime) / ns;
             lastTime = now;
             while(delta >= 1) {
-                try {
-                    update();
-                } catch (UnsupportedAudioFileException e) {
-                    e.printStackTrace();
-                }
+                update();
                 delta--;
             }
             if(running)
@@ -76,7 +72,7 @@ public class Game extends Canvas implements Runnable {
         stop();
     }
 
-    private void update() throws UnsupportedAudioFileException {
+    private void update() {
         handler.update();
     }
 
@@ -118,7 +114,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         new Game();
     }
 

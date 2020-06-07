@@ -24,7 +24,7 @@ public class HeadDuck extends Duck {
     long timeOfKoink;
     int koinkDuration = 420;
 
-    public HeadDuck(double x, double y, int rotation) throws UnsupportedAudioFileException {
+    public HeadDuck(double x, double y, int rotation) {
 
         this.x = x;
         this.y = y;

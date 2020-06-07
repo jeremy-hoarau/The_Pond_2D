@@ -26,7 +26,6 @@ public class DeadDuck extends Duck{
     }
 
     public long getTimeBeforeDelete() {
-        long timeBeforeDelete = 3000;
-        return timeBeforeDelete;
+        return 3000;
     }
 }

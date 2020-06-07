@@ -21,7 +21,7 @@ public class Handler {
 
     private long lastSpawnTime = System.currentTimeMillis();
 
-    public void update() throws UnsupportedAudioFileException {
+    public void update() {
         int spawnTime = 20000;
         if((lastSpawnTime + spawnTime) < System.currentTimeMillis()){
             ducksToAdd.add(new Duck());
