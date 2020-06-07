@@ -9,8 +9,8 @@ import java.util.LinkedList;
 
 public class HeadDuck extends Duck {
 
-    LinkedList<Duck> followers = new LinkedList<>();
-    ArrayList<double[]> positionsHistory = new ArrayList<>();
+    private final LinkedList<Duck> followers = new LinkedList<>();
+    private final ArrayList<double[]> positionsHistory = new ArrayList<>();
 
     private long lastTimeSavePosition;
     private long lastTimeADuckLeft;
