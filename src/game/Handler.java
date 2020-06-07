@@ -2,7 +2,6 @@ package game;
 
 import game.models.*;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.util.LinkedList;
 

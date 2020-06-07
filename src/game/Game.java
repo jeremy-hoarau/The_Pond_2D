@@ -4,7 +4,6 @@ import game.models.Duck;
 import game.models.Rock;
 import game.models.WaterLily;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
