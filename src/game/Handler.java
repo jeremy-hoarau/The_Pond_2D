@@ -63,19 +63,24 @@ public class Handler {
     }
 
     public void render(Graphics2D g) {
-        for (GameObject go : rocks) {          // ROCKS
+        for (int i = 0; i < rocks.size(); i++) {          // ROCKS
+            GameObject go = rocks.get(i);
             go.render(g);
         }
-        for (GameObject go : waterLilies) {    // WATER LILIES
+        for (int i = 0; i < waterLilies.size(); i++) {    // WATER LILIES
+            GameObject go = waterLilies.get(i);
             go.render(g);
         }
-        for (GameObject go : ducks) {          // DUCKS
+        for (int i = 0; i < ducks.size(); i++) {          // DUCKS
+            GameObject go = ducks.get(i);
             go.render(g);
         }
-        for (GameObject go : headDucks) {          // HEAD DUCKS
+        for (int i = 0; i < headDucks.size(); i++) {          // HEAD DUCKS
+            GameObject go = headDucks.get(i);
             go.render(g);
         }
-        for (GameObject go : deadDucks) {          // DEAD DUCKS
+        for (int i = 0; i < deadDucks.size(); i++) {          // DEAD DUCKS
+            GameObject go = deadDucks.get(i);
             go.render(g);
         }
     }

@@ -66,7 +66,7 @@ public class Physics {
         return null;
     }
 
-    private static String getDirection(GameObject duck, GameObject go) {
+    private static String getDirection(Duck duck, GameObject go) {
         // COLLIDE LEFT
         if((duck.getX()-duck.getWidth()/2 < go.getX()+go.getWidth()/2 && go.getX()-go.getWidth()/2 < duck.getX()-go.getWidth()/2)) {
             if(go.getY()-go.getHeight()/2 < duck.getY()+duck.getHeight()/2 && duck.getY()+duck.getHeight()/2 < go.getY()+go.getHeight()/2)        // collide left-bot
