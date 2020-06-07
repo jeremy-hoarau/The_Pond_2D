@@ -17,10 +17,10 @@ public abstract class GameObject {
     protected int imgWidth;
     protected int imgHeight;
 
-    public GameObject(double x, double y, Type id) {
+    public GameObject(double x, double y, Type type) {
         this.x = x;
         this.y = y;
-        this.type = id;
+        this.type = type;
     }
 
     public abstract void update();
