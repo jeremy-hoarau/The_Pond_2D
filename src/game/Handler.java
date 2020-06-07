@@ -63,24 +63,19 @@ public class Handler {
     }
 
     public void render(Graphics2D g) {
-        for (int i = 0; i < getNumberOfRocks(); i++) {          // ROCKS
-            GameObject go = rocks.get(i);
+        for (GameObject go : rocks) {          // ROCKS
             go.render(g);
         }
-        for (int i = 0; i < getNumberOfWaterLilies(); i++) {    // WATER LILIES
-            GameObject go = waterLilies.get(i);
+        for (GameObject go : waterLilies) {    // WATER LILIES
             go.render(g);
         }
-        for (int i = 0; i < getNumberOfDucks(); i++) {          // DUCKS
-            GameObject go = ducks.get(i);
+        for (GameObject go : ducks) {          // DUCKS
             go.render(g);
         }
-        for (int i = 0; i < getNumberOfHeadDucks(); i++) {          // HEAD DUCKS
-            GameObject go = headDucks.get(i);
+        for (GameObject go : headDucks) {          // HEAD DUCKS
             go.render(g);
         }
-        for (int i = 0; i < getNumberOfDeadDucks(); i++) {          // DEAD DUCKS
-            GameObject go = deadDucks.get(i);
+        for (GameObject go : deadDucks) {          // DEAD DUCKS
             go.render(g);
         }
     }
@@ -100,9 +95,6 @@ public class Handler {
     }
 
 
-    public static LinkedList<Duck> getDucks() {
-        return ducks;
-    }
     public static LinkedList<HeadDuck> getHeadDucks() {
         return headDucks;
     }
@@ -111,23 +103,6 @@ public class Handler {
     }
     public static LinkedList<WaterLily> getWaterLilies() {
         return waterLilies;
-    }
-
-
-    public static int getNumberOfDucks() {
-        return ducks.size();
-    }
-    public static int getNumberOfHeadDucks() {
-        return headDucks.size();
-    }
-    public static int getNumberOfDeadDucks() {
-        return deadDucks.size();
-    }
-    public static int getNumberOfRocks() {
-        return rocks.size();
-    }
-    public static int getNumberOfWaterLilies() {
-        return waterLilies.size();
     }
 
     public static int getNextId() {

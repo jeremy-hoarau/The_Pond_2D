@@ -15,10 +15,10 @@ public class Physics {
     public static String collisionPond(Duck duck) {
 
         Rectangle[] pondColliders = {
-            new Rectangle(0, 0, xMin, HEIGHT),       // left
-            new Rectangle(xMax, 0, 500, HEIGHT),  // right
-            new Rectangle(0, 0, WIDTH, yMin),       // top
-            new Rectangle(0, yMax, WIDTH, 500)  // bot
+            new Rectangle(0, 0, pondMinX, HEIGHT),       // left
+            new Rectangle(pondMaxX, 0, 500, HEIGHT),  // right
+            new Rectangle(0, 0, WIDTH, pondMinY),       // top
+            new Rectangle(0, pondMaxY, WIDTH, 500)  // bot
         };
 
         String[] directionToGo = {"right", "left", "bot", "top"};

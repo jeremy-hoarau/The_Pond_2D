@@ -13,10 +13,10 @@ public class Game extends Canvas implements Runnable {
     public static Graphics2D g;
 
     // Pond borders
-    public static final int xMin = 400;
-    public static final int xMax = 1200;
-    public static final int yMin = (HEIGHT-600)/2;
-    public static final int yMax = (HEIGHT-600)/2 + 600;
+    public static final int pondMinX = 400;
+    public static final int pondMaxX = 1200;
+    public static final int pondMinY = (HEIGHT-600)/2;
+    public static final int pondMaxY = (HEIGHT-600)/2 + 600;
 
     private Thread thread;
     private boolean running = false;
@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setColor(new Color(62, 112, 215));    //Pond
-        g.fillRoundRect(xMin, yMin, xMax-xMin, yMax-yMin, 50, 50);
+        g.fillRoundRect(pondMinX, pondMinY, pondMaxX - pondMinX, pondMaxY - pondMinY, 50, 50);
 
         handler.render(g);
 

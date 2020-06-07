@@ -46,7 +46,7 @@ public class Duck extends GameObject {
         dx = 0;
         dy = 0;
         angleToRotate = 0;
-        if(transform.getTranslateX() >= Game.xMin && !inWater){     // Enter in Water
+        if(transform.getTranslateX() >= Game.pondMinX && !inWater){     // Enter in Water
             enterInWater();
         }
         else if(inWater && leader == null)
